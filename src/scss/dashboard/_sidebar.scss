@@ -1,0 +1,118 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.sidebar {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: linear-gradient(to bottom, v.$verde, v.$rosa);
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    border-radius: 0 1rem 1rem 0;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateX(-100%); // Oculto a la izquierda
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    overflow-y: auto;
+    pointer-events: none; // Evita clicks mientras está oculto
+    visibility: hidden;
+
+    &.mostrar {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+    }
+
+    &.ocultar {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+
+    @include m.tablet {
+        position: static;
+        transform: none;
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+        display: flex;
+        background-color: v.$rosa;
+        height: 100%;
+    }
+
+
+
+    .contenedor-sidebar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h2 {
+            color: v.$blanco;
+            margin: 0;
+            text-align: center;
+        }
+
+        .cerrar-menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 2rem;
+            height: 2rem;
+
+            img {
+                width: 100%;
+                height: auto;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            @include m.tablet {
+                display: none;
+            }
+        }
+    }
+
+    .sidebar-nav {
+        margin-top: 4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        a {
+            color: v.$blanco;
+            display: block;
+            padding: 1rem 1.5rem;
+            text-transform: uppercase;
+            font-size: 1.4rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.1);
+
+            &:hover,
+            &.activo {
+                background-color: rgba(255, 255, 255, 0.25);
+                transform: translateX(5px);
+            }
+        }
+    }
+}
+
+
+.sidebar.mostrar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow-y: auto;
+
+    @include m.tablet {
+        display: none; // No afecta tablets/escritorio
+    }
+}

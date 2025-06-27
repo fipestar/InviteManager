@@ -1,0 +1,78 @@
+@use 'base/variables' as v;
+
+
+/** Media Queries **/
+@mixin telefono {
+    @media (min-width: v.$telefono) {
+        @content;
+    }
+}
+@mixin tablet {
+    @media (min-width: v.$tablet) {
+        @content;
+    }
+}
+@mixin desktop {
+    @media (min-width: v.$desktop) {
+        @content;
+    }
+}
+
+/** Botón Personalizado **/
+@mixin boton($bgColor, $colorTexto) {
+    background-color: $bgColor;
+    color: $colorTexto;
+    padding: 1.2rem 3.2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.8rem;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    @include tablet {
+        width: auto;
+    }
+
+    &:hover {
+        background-color: darken($bgColor, 10%);
+        transform: scale(1.03);
+        cursor: pointer;
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+/** Grid Personalizado **/
+@mixin grid($columnas, $espaciado) {
+    display: grid;
+    grid-template-columns: repeat($columnas, 1fr);
+    gap: $espaciado;
+    align-items: start;
+}
+@mixin textoDegradado($color) {
+    background: linear-gradient(to right, $color 0%, lighten($color, 30%) 100%);
+        color: transparent;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        font-size: 6rem;
+        font-weight: 900;
+        letter-spacing: 1px;
+
+        @include tablet {
+            font-size: 1rem;
+        }
+
+        @include desktop {
+            font-size: 11rem;
+        }
+}

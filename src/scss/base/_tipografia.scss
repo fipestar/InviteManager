@@ -1,0 +1,44 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+h1, h2, h3 {
+    font-family: v.$fuente_headings;
+    margin: 0 0 calc(v.$separacion / 2) 0;
+    font-weight: 800; // un poco más liviano que 900, pero sigue siendo fuerte
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 4.2rem;  // antes era muy grande, lo bajé un poco para mejor escala
+    letter-spacing: -0.03em;
+    @include m.tablet {
+        font-size: 6rem; // tamaño más manejable en tabletas
+    }
+}
+
+h2 {
+    font-size: 3.6rem;
+    letter-spacing: -0.02em;
+}
+
+h3 {
+    font-size: 3rem;
+    letter-spacing: -0.01em;
+}
+
+p {
+    font-family: v.$fuente_textos;
+    font-size: 1.8rem;
+    color: v.$grisOscuro;
+    line-height: 1.7;
+}
+.tagline {
+    font-family: v.$fuente_headings;
+    font-weight: 900;
+    color: v.$negro;
+    font-size: 3rem;
+    text-align: center;
+}
+.descripcion-pagina{
+    text-align: center;
+}

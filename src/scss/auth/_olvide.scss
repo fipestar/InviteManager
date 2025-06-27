@@ -1,0 +1,24 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.olvide {
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+
+    .invitemanager {
+        @include m.textoDegradado(v.$rosaClaro);
+    }
+
+    input[type="submit"] {
+        @include m.boton(v.$rosaClaro, v.$blanco);
+    }
+
+    .acciones {
+        a {
+            color: v.$rosaClaro;
+        }
+    }
+}

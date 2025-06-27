@@ -1,0 +1,21 @@
+{
+  "name": "InviteManager",
+  "version": "1.0.0",
+  "description": "InviteManager - Proyecto de gestión de invitaciones",
+  "author": "Juan Barbosa",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "gulp"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^5.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-terser": "^2.1.0",
+    "sass": "^1.75.0"
+  },
+  "dependencies": {
+    "sweetalert2": "^11.22.1"
+  }
+}

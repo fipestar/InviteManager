@@ -1,0 +1,98 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.dashboard {
+    background: linear-gradient(to right, lighten(v.$verde, 45%), lighten(v.$rosa, 35%));
+    display: flex;
+    min-height: 100vh;
+    padding: 2rem;
+
+    .principal {
+        flex: 1;
+        overflow: scroll;
+    }
+
+    .contenido {
+        padding: 2rem;
+    }
+    .nombre-pagina {
+        font-size: 2.8rem;
+        text-align: center;
+    }
+    .enlace {
+        display: inline-block;
+        margin-top: 1rem;
+        color: v.$rosa;
+        padding: 2rem;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 1.6rem;
+        transition: color 0.3s;
+
+        &:hover {
+            color: darken(v.$rosa, 10%);
+        }
+    }
+    .formulario {
+    background-color: lighten(v.$blanco, 5%);
+    padding: 3rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    max-width: 80rem;
+    margin: 0 auto;
+    
+    input[type="submit"] {
+        @include m.boton(v.$verde, v.$blanco);
+        padding: 1.2rem 3rem;
+        border-radius: .5rem;
+        font-weight: bold;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        margin-top: 2rem;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: darken(v.$verde, 10%);
+        }
+    }
+
+    .campo {
+        margin-bottom: 2.5rem;
+
+        label {
+            display: block;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: .8rem;
+            color: v.$grisOscuro;
+            font-size: 1.4rem;
+        }
+
+        input:not([type="submit"]),
+        select,
+        textarea {
+            width: 100%;
+            padding: 1.2rem;
+            border: 1px solid lighten(v.$grisOscuro, 30%);
+            border-radius: .5rem;
+            background-color: v.$blanco;
+            font-size: 1.6rem;
+            color: v.$grisOscuro;
+
+            &:focus {
+                outline: none;
+                border-color: v.$verde;
+                box-shadow: 0 0 0 2px rgba(0, 200, 120, 0.2);
+            }
+        }
+    }
+
+    
+}
+
+    @include m.tablet {
+        display: flex;
+        height: 100vh;
+        padding: 0;
+    }
+}

@@ -1,0 +1,141 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+@media (prefers-color-scheme: dark) {
+  $fondoOscuro: #1d3557; // Fondo general
+  $fondoIntermedio: #264653; // Para inputs, sidebar, etc.
+  $textoClaro: #f1faee; // Texto claro
+  $acento: #f4a261; // Naranja pastel
+
+  body {
+    background-color: $fondoOscuro;
+  }
+
+  .tagline,
+  .formulario label,
+  .login .acciones a,
+  .crear .acciones a,
+  .olvide .acciones a {
+    color: $textoClaro;
+  }
+
+  .descripcion-pagina,
+  .formulario .campo input,
+  .nombre-pagina {
+    color: lighten($textoClaro, 10%);
+  }
+
+  .formulario .campo input {
+    background-color: lighten($fondoIntermedio, 10%);
+    &::placeholder {
+      color: lighten($textoClaro, 20%);
+    }
+  }
+
+  .alerta.error {
+    background-color: $textoClaro;
+  }
+
+  .sidebar {
+    @include m.tablet {
+      background-color: $fondoIntermedio;
+    }
+
+    .sidebar-nav a {
+      &.activo,
+      &:hover {
+        background-color: $acento;
+        color: $fondoOscuro;
+      }
+    }
+  }
+
+  .barra-mobile,
+  .barra {
+    background-color: darken($fondoOscuro, 5%);
+  }
+
+  .barra {
+    p {
+      color: $acento;
+      span {
+        color: $textoClaro;
+      }
+    }
+
+    .cerrar-sesion {
+      @include m.boton($acento, $fondoOscuro);
+      padding: 1rem;
+      font-size: 1.2rem;
+    }
+  }
+
+  .filtros {
+    background-color: lighten($fondoIntermedio, 10%);
+    h2,
+    label {
+      color: $textoClaro;
+    }
+    input[type="radio"] {
+      accent-color: $acento;
+    }
+  }
+
+  .dashboard {
+    background-color: $fondoOscuro;
+
+    .enlace {
+      color: $textoClaro;
+
+      &:hover {
+        color: lighten($textoClaro, 20%);
+      }
+    }
+
+    .formulario input:not([type="submit"]) {
+      background-color: lighten($fondoIntermedio, 15%);
+      color: $textoClaro;
+
+      &:hover {
+        background-color: lighten($fondoIntermedio, 10%);
+      }
+
+      &::placeholder {
+        color: lighten($textoClaro, 20%);
+      }
+    }
+  }
+
+  .listado-proyectos .proyecto {
+    background-color: lighten($fondoIntermedio, 10%);
+    &:hover {
+      background-color: lighten($fondoIntermedio, 5%);
+    }
+  }
+
+  .listado-tareas .tarea {
+    background-color: lighten($fondoIntermedio, 5%);
+    border: none;
+    p {
+      color: $textoClaro;
+    }
+  }
+
+  .modal .formulario {
+    background-color: $fondoIntermedio;
+
+    input[type="text"] {
+      background-color: lighten($fondoIntermedio, 10%);
+      border: none;
+      color: $textoClaro;
+
+      &::placeholder {
+        color: lighten($textoClaro, 20%);
+      }
+    }
+
+    legend {
+      color: $textoClaro;
+    }
+  }
+}
