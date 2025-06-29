@@ -34,7 +34,7 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu entorno local:
 ### 1. Clonar el Repositorio
 
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone https://github.com/fipestar/InviteManager
 cd InviteManager
 ```
 
