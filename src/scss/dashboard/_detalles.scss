@@ -1,0 +1,40 @@
+.detalles-evento {
+    margin-bottom: 2rem;
+
+    .mostrar-detalles-evento {
+        background-color: #0077cc; // Azul
+        color: #ffffff; // Blanco
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color .3s ease;
+
+        &:hover {
+            background-color: #0061a8; // Azul más oscuro
+        }
+    }
+
+    .contenedor-detalles {
+        margin-top: 2rem;
+        padding: 2rem;
+        border: 1px solid #e1e1e1;
+        border-radius: 5px;
+        max-height: 52px;
+        overflow: hidden;
+        transition: max-height 0.5s ease-out, padding .5s ease-out;
+
+        &.mostrando {
+            max-height: 500px; /* Ajusta según sea necesario */
+            padding: 2rem;
+        }
+
+        p {
+            margin: 0 0 1rem 0;
+            span {
+                font-weight: bold;
+            }
+        }
+    }
+}

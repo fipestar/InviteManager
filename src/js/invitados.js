@@ -16,14 +16,40 @@
         radio.addEventListener('input', filtrarInvitados);
     })
 
-    function filtrarInvitados(e){
-        const filtro = e.target.value;
-       
-        if(filtro !== ''){
-            filtradas = invitados.filter(invitado => invitado.asistencia === filtro);
+    let filtrosState = { 
+        asistencia: '',
+        parentesco: ''
+    };
+
+    const parentescoFiltro = document.querySelector('#parentesco');
+    parentescoFiltro.addEventListener('input', handleFiltroChange);
+
+    const filtrosAsistencia = document.querySelectorAll('#filtros input[type="radio"]');
+    filtrosAsistencia.forEach(radio => {
+        radio.addEventListener('input', handleFiltroChange);
+    });
+
+    function handleFiltroChange(e) {
+        if (e.target.name === 'filtro') {
+            filtrosState.asistencia = e.target.value;
         } else {
-            filtradas = [];
+            filtrosState.parentesco = e.target.value;
         }
+        filtrarInvitados();
+    }
+
+    function filtrarInvitados(){
+        let resultado = invitados;
+
+        if (filtrosState.parentesco) {
+            resultado = resultado.filter(invitado => invitado.parentesco === filtrosState.parentesco);
+        }
+
+        if (filtrosState.asistencia) {
+            resultado = resultado.filter(invitado => invitado.asistencia === filtrosState.asistencia);
+        }
+
+        filtradas = resultado;
         mostrarInvitados();
     }
 
@@ -53,12 +79,14 @@
     function mostrarInvitados() {
         limpiarInvitados();
 
-        const arrayInvitados = filtradas.length ? filtradas : invitados;
+        const hayFiltrosActivos = filtrosState.asistencia !== '' || filtrosState.parentesco !== '';
+
+        const arrayInvitados = hayFiltrosActivos ? filtradas : invitados;
         if(arrayInvitados.length === 0) {
             const contenedorInvitados = document.querySelector('#listado-invitados');
 
             const textoNoInvitados = document.createElement('LI');
-            textoNoInvitados.textContent = 'No hay invitados aún';
+            textoNoInvitados.textContent = 'No hay invitados que cumplan con el filtro';
             textoNoInvitados.classList.add('no-invitados');
 
             contenedorInvitados.appendChild(textoNoInvitados);
@@ -130,7 +158,15 @@
                 value="${invitado.nombre ? invitado.nombre : ''}"
             />
           </div>
-          <div class="opciones">
+          <div class="campo">
+            <label>Parentesco</label>
+            <select name="parentesco" id="parentesco-form">
+                <option value="" ${invitado.parentesco === '' ? 'selected' : ''}>-- Seleccione --</option>
+                <option value="familia" ${invitado.parentesco === 'familia' ? 'selected' : ''}>Familia</option>
+                <option value="amigos" ${invitado.parentesco === 'amigos' ? 'selected' : ''}>Amigos</option>
+                <option value="colegas" ${invitado.parentesco === 'colegas' ? 'selected' : ''}>Colegas</option>
+            </select>
+          </div>
                     <input 
                         type="submit" 
                         class="submit-nuevo-invitado" 
@@ -159,18 +195,20 @@
             }
             if(e.target.classList.contains('submit-nuevo-invitado')){
                 const nombreInvitado = document.querySelector('#invitado').value.trim();
+                const parentescoInvitado = document.querySelector('#parentesco-form').value;
 
-                if(nombreInvitado === ''){
+                if(nombreInvitado === '' || parentescoInvitado === ''){
                 //Mostrar una alerta de error
-                mostrarAlerta('El nombre del invitado es obligatorio', 'error', document.querySelector('.formulario legend'));
+                mostrarAlerta('Todos los campos son obligatorios', 'error', document.querySelector('.formulario legend'));
                 return;
                 }
 
                 if(editar){
                     invitado.nombre = nombreInvitado;
+                    invitado.parentesco = parentescoInvitado;
                     actualizarInvitado(invitado);
                 } else {
-                    agregarInvitado(nombreInvitado);
+                    agregarInvitado({nombre: nombreInvitado, parentesco: parentescoInvitado});
                 }
             }
         })
@@ -205,7 +243,8 @@
     async function agregarInvitado(invitado) {
         //Construir la peticion
         const datos = new FormData();
-        datos.append('nombre', invitado);
+        datos.append('nombre', invitado.nombre);
+        datos.append('parentesco', invitado.parentesco);
         datos.append('eventoId', obtenerEvento());
 
         try {
@@ -227,7 +266,8 @@
                 //Agregar el objeto de invitado al global de invitados
                 const invitadoObj = {
                     id: String(resultado.id),
-                    nombre:invitado,
+                    nombre:invitado.nombre,
+                    parentesco: invitado.parentesco,
                     asistencia: "0",
                     eventoId: resultado.eventoId
                 }
@@ -263,13 +303,14 @@
         actualizarInvitado(invitado);
     }
     async function actualizarInvitado(invitado) {
-        const {asistencia, id, nombre, eventoId} = invitado;
+        const {asistencia, id, nombre, eventoId, parentesco} = invitado;
 
         const datos = new FormData();
         datos.append('id', id);
         datos.append('nombre', nombre);
         datos.append('asistencia', asistencia);
         datos.append('eventoId', obtenerEvento());
+        datos.append('parentesco', parentesco);
 
         try {
             const url = 'http://localhost:3000/api/invitado/actualizar';
@@ -296,6 +337,7 @@
                 if(invitadoMemoria.id === id) {
                     invitadoMemoria.asistencia = asistencia;
                     invitadoMemoria.nombre = nombre;
+                    invitadoMemoria.parentesco = parentesco;
                 }
                 return invitadoMemoria;
             });

@@ -25,3 +25,18 @@ if(cerrarMenuBtn) {
         }, 500);
     })
 }
+
+// Detalles del evento
+const mostrarDetallesBtn = document.querySelector('#mostrar-detalles-evento');
+if(mostrarDetallesBtn) {
+    mostrarDetallesBtn.addEventListener('click', () => {
+        const contenedorDetalles = document.querySelector('#contenedor-detalles');
+        contenedorDetalles.classList.toggle('mostrando');
+
+        if(contenedorDetalles.classList.contains('mostrando')) {
+            mostrarDetallesBtn.textContent = 'Ocultar Detalles del Evento';
+        } else {
+            mostrarDetallesBtn.textContent = 'Mostrar Detalles del Evento';
+        }
+    });
+}

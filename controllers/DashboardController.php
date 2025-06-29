@@ -103,7 +103,8 @@ class DashboardController {
             header('Location: /dashboard');
         }
         $router->render('dashboard/evento', [
-            'titulo' => $evento->nombre
+            'titulo' => $evento->nombre,
+            'evento' => $evento
         ]);
     }
 
