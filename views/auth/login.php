@@ -17,6 +17,7 @@
                 <input type="password" id="password" name="password" placeholder="Tu Contraseña" required>
             </div>
             <input type="submit" value="Iniciar Sesión" class="boton">
+            <a href="/login-invitado" class="boton-invitado">Probar como Invitado</a>
         </form>
 
         <div class="acciones">

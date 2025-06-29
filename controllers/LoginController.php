@@ -48,6 +48,27 @@ class LoginController {
         ]);
     }
 
+    public static function login_invitado() {
+        $usuario = Usuario::where('email', 'invitado@demo.com');
+
+        if(!$usuario) {
+            // Si el usuario invitado no existe, puedes manejar el error como prefieras.
+            // Por ejemplo, redirigir al login con un mensaje de error.
+            header('Location: /?error=invitado_no_encontrado');
+            return;
+        }
+
+        // Iniciar la sesión para el usuario invitado
+        session_start();
+        $_SESSION['id'] = $usuario->id;
+        $_SESSION['nombre'] = $usuario->nombre;
+        $_SESSION['email'] = $usuario->email;
+        $_SESSION['login'] = true;
+
+        // Redireccionar al dashboard
+        header('Location: /dashboard');
+    }
+
     public static function crear(Router $router) {
         $alertas = [];
         $usuario = new Usuario;

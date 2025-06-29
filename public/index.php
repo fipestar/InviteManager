@@ -10,6 +10,7 @@ $router = new Router();
 
 $router->get('/', [new LoginController(), 'login']);
 $router->post('/', [new LoginController(), 'login']);
+$router->get('/login-invitado', [new LoginController(), 'login_invitado']);
 $router->get('/logout', [new LoginController(), 'logout']);
 
 //Crear Cuenta

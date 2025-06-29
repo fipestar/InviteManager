@@ -16,6 +16,13 @@
         @include m.boton(v.$verde, v.$blanco);
     }
 
+    .boton-invitado {
+        @include m.boton(v.$azul, v.$blanco);
+        margin-top: 1.5rem;
+        display: block;
+        text-align: center;
+    }
+
     .acciones {
         a {
             color: v.$verde;
